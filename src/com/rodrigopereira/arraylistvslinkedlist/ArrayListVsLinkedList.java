@@ -8,17 +8,17 @@ import java.util.concurrent.TimeUnit;
 
 public class ArrayListVsLinkedList {
 
-    public static final int NUMBER_OF_ELEMENTS = 1000000;
-    public static final int INDEX_TO_GET = 500000;
-    public static final int INDEX_TO_REMOVE = 500001;
+    public static final int NUMBER_OF_ELEMENTS = 10000;
+    public static final int INDEX_TO_GET = 5000;
+    public static final int INDEX_TO_REMOVE = 5000;
 
     public static void main(String[] args) {
 
         var arrayList = new ArrayList<Integer>();
         var linkedList = new LinkedList<Integer>();
 
-        measureAddingMannyElementsOneByOne(arrayList);
-        measureAddingMannyElementsOneByOne(linkedList);
+        measureAddingManyElementsOneByOne(arrayList);
+        measureAddingManyElementsOneByOne(linkedList);
 
         measureGettingOneElementInTheMiddle(arrayList);
         measureGettingOneElementInTheMiddle(linkedList);
@@ -31,13 +31,13 @@ public class ArrayListVsLinkedList {
 
     }
 
-    private static void measureAddingMannyElementsOneByOne(List<Integer> list) {
+    private static void measureAddingManyElementsOneByOne(List<Integer> list) {
         final long startTime = System.nanoTime();
         for(int i = 0; i < NUMBER_OF_ELEMENTS; i++) {
             list.add(i);
         }
-        final long endTimeLikedListAdding = System.nanoTime();
-        long total = endTimeLikedListAdding - startTime;
+        final long endTime = System.nanoTime();
+        long total = endTime - startTime;
         printResults("adding elements", list.getClass().getName(), total);
     }
 
@@ -67,7 +67,6 @@ public class ArrayListVsLinkedList {
         long total = endTime - startTime;
         printResults("removing first element", list.getClass().getName(), total);
     }
-
 
     private static void printResults(String action, String listClass, long total) {
         long totalSeconds = TimeUnit.MILLISECONDS.convert(Duration.ofNanos(total));
